@@ -1,22 +1,20 @@
 package org.example.demospring.repository.impl;
 
 import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.example.demospring.exception.DataProcessingException;
 import org.example.demospring.model.Book;
 import org.example.demospring.repository.BookRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
 @Repository
 public class BookRepositoryImpl implements BookRepository {
     private final SessionFactory sessionFactory;
-
-    @Autowired
-    public BookRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -45,7 +43,16 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Book", Book.class).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't get all books", e);
+            throw new DataProcessingException("Can't get all books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> getBookById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(Book.class, id));
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't get all books", e);
         }
     }
 }

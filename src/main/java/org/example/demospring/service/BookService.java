@@ -1,10 +1,13 @@
 package org.example.demospring.service;
 
 import java.util.List;
-import org.example.demospring.model.Book;
+import org.example.demospring.dto.BookDto;
+import org.example.demospring.dto.CreateBookRequestDto;
 
 public interface BookService {
-    Book save(Book book);
+    BookDto save(CreateBookRequestDto book);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
+
+    BookDto findById(Long id);
 }
