@@ -3,11 +3,13 @@ package org.example.demospring.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.demospring.dto.BookDto;
+import org.example.demospring.dto.BookSearchParameters;
 import org.example.demospring.dto.CreateBookRequestDto;
 import org.example.demospring.exception.EntityNotFoundException;
 import org.example.demospring.mapper.BookMapper;
 import org.example.demospring.model.Book;
-import org.example.demospring.repository.BookRepository;
+import org.example.demospring.repository.book.BookRepository;
+import org.example.demospring.repository.book.BookSpecificationBuilder;
 import org.example.demospring.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -52,5 +55,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDto> search(BookSearchParameters parameters) {
+        var bookSpecification = bookSpecificationBuilder.build(parameters);
+        return bookRepository.findAll(bookSpecification)
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 }

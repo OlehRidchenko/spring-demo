@@ -2,6 +2,7 @@ package org.example.demospring.service;
 
 import java.util.List;
 import org.example.demospring.dto.BookDto;
+import org.example.demospring.dto.BookSearchParameters;
 import org.example.demospring.dto.CreateBookRequestDto;
 
 public interface BookService {
@@ -14,4 +15,6 @@ public interface BookService {
     BookDto updateBookById(Long id, CreateBookRequestDto changedBook);
 
     void deleteById(Long id);
+
+    List<BookDto> search(BookSearchParameters parameters);
 }
