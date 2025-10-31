@@ -1,6 +1,8 @@
 package org.example.demospring.contoller;
 
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.demospring.dto.BookDto;
 import org.example.demospring.dto.BookSearchParameters;
@@ -35,12 +37,14 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
+    public BookDto createBook(@Valid
+                                  @RequestBody CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @PutMapping("/{id}")
     public BookDto updateBookById(@PathVariable Long id,
+                                  @Valid
                                   @RequestBody CreateBookRequestDto bookRequestDto) {
         return bookService.updateBookById(id, bookRequestDto);
     }
