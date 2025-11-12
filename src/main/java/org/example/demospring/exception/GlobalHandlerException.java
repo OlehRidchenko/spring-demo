@@ -40,9 +40,9 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
     private String getErrorMessage(ObjectError objectError) {
         try {
             if (objectError instanceof FieldError fieldError) {
-                return fieldError.getField() + " " + fieldError.getDefaultMessage();
+                return fieldError.getField() + " error: " + fieldError.getCode();
             }
-            return objectError.getDefaultMessage();
+            return "Error: " + objectError.getCode();
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException("Entity not found while generating error message");
         }
