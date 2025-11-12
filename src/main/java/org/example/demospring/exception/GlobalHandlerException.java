@@ -27,7 +27,6 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
         Map<String, Object> errors = new LinkedHashMap<>();
         errors.put("timestamp", LocalDateTime.now());
-        errors.put("status", HttpStatus.BAD_REQUEST);
 
         List<String> mappedErrors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getErrorMessage)
@@ -35,13 +34,17 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
         errors.put("errors", mappedErrors);
 
-        return new ResponseEntity<>(errors, headers, status);
+        return new ResponseEntity<>(errors, headers, HttpStatus.BAD_REQUEST);
     }
 
     private String getErrorMessage(ObjectError objectError) {
-        if (objectError instanceof FieldError fieldError) {
-            return fieldError.getField() + " " + fieldError.getDefaultMessage();
+        try {
+            if (objectError instanceof FieldError fieldError) {
+                return fieldError.getField() + " " + fieldError.getDefaultMessage();
+            }
+            return objectError.getDefaultMessage();
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Entity not found while generating error message");
         }
-        return objectError.getDefaultMessage();
     }
 }

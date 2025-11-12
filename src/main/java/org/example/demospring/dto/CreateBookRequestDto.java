@@ -1,8 +1,9 @@
 package org.example.demospring.dto;
 
 import java.math.BigDecimal;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -13,10 +14,9 @@ public class CreateBookRequestDto {
     private String author;
     @NotBlank
     private String isbn;
-    @DecimalMin("0.0")
+    @NotNull
+    @Positive
     private BigDecimal price;
-    @NotBlank
     private String description;
-    @NotBlank
     private String coverImage;
 }
