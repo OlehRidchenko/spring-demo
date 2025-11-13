@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,10 +30,12 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
         List<String> mappedErrors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getErrorMessage)
                 .toList();
-
-        errors.put("errors", mappedErrors);
-
-        return new ResponseEntity<>(errors, headers, HttpStatus.BAD_REQUEST);
+        try {
+            errors.put("errors", mappedErrors);
+            return new ResponseEntity<>(errors, headers, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Entity not found while handling arguments", e);
+        }
     }
 
     private String getErrorMessage(ObjectError objectError) {
@@ -43,8 +44,8 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
                 return fieldError.getField() + " error: " + fieldError.getCode();
             }
             return "Error: " + objectError.getCode();
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Entity not found while generating error message");
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Entity not found while generating error message", e);
         }
     }
 }
