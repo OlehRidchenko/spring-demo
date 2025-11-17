@@ -1,5 +1,8 @@
 package org.example.demospring.contoller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,22 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Book store management", description = "Endpoints for all books")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/books")
 public class BookController {
     private final BookService bookService;
 
+    @Operation(summary = "Get all books")
     @GetMapping
-    public List<BookDto> findAll() {
-        return bookService.findAll();
+    public List<BookDto> findAll(Pageable pageable) {
+        return bookService.findAll(pageable);
     }
 
+    @Operation(summary = "Get book with some id")
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
+    @Operation(summary = "Crate a new book")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookDto createBook(@Valid
@@ -41,6 +48,7 @@ public class BookController {
         return bookService.save(requestDto);
     }
 
+    @Operation(summary = "Update existing book")
     @PutMapping("/{id}")
     public BookDto updateBookById(@PathVariable Long id,
                                   @Valid
@@ -48,12 +56,14 @@ public class BookController {
         return bookService.updateBookById(id, bookRequestDto);
     }
 
+    @Operation(summary = "Remove existing book by some id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         bookService.deleteById(id);
     }
 
+    @Operation(summary = "Find book by some parameters")
     @GetMapping("/search")
     public List<BookDto> searchBooks(BookSearchParameters searchParameters) {
         return bookService.search(searchParameters);
