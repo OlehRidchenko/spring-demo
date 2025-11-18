@@ -2,6 +2,7 @@ package org.example.demospring.contoller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ public class BookController {
 
     @Operation(summary = "Get all books")
     @GetMapping
-    public List<BookDto> findAll(Pageable pageable) {
+    public Page<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
