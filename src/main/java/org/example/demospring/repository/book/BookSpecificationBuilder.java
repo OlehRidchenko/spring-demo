@@ -1,7 +1,7 @@
 package org.example.demospring.repository.book;
 
 import lombok.RequiredArgsConstructor;
-import org.example.demospring.dto.BookSearchParameters;
+import org.example.demospring.dto.book.BookSearchParameters;
 import org.example.demospring.model.Book;
 import org.example.demospring.repository.SpecificationBuilder;
 import org.example.demospring.repository.SpecificationProviderManager;
