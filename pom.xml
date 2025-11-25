@@ -82,11 +82,12 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
-        <!--  SWAGGER DEPENDENCIES  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
+        <!--  SWAGGER DEPENDENCIES  -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>

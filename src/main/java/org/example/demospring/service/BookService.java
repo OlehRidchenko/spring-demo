@@ -3,9 +3,9 @@ package org.example.demospring.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
-import org.example.demospring.dto.BookDto;
-import org.example.demospring.dto.BookSearchParameters;
-import org.example.demospring.dto.CreateBookRequestDto;
+import org.example.demospring.dto.book.BookDto;
+import org.example.demospring.dto.book.BookSearchParameters;
+import org.example.demospring.dto.book.CreateBookRequestDto;
 
 public interface BookService {
     BookDto save(CreateBookRequestDto book);
