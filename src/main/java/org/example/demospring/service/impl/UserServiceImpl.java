@@ -6,7 +6,7 @@ import org.example.demospring.dto.user.UserResponseDto;
 import org.example.demospring.exception.RegistrationException;
 import org.example.demospring.mapper.UserMapper;
 import org.example.demospring.model.User;
-import org.example.demospring.repository.UserRepository;
+import org.example.demospring.repository.user.UserRepository;
 import org.example.demospring.service.UserService;
 import org.springframework.stereotype.Service;
 

@@ -1,17 +1,18 @@
 package org.example.demospring.contoller;
 
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import java.util.List;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.demospring.dto.book.BookDto;
 import org.example.demospring.dto.book.BookSearchParameters;
 import org.example.demospring.dto.book.CreateBookRequestDto;
 import org.example.demospring.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ public class BookController {
         return bookService.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Crate a new book")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -49,6 +51,7 @@ public class BookController {
         return bookService.save(requestDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update existing book")
     @PutMapping("/{id}")
     public BookDto updateBookById(@PathVariable Long id,
@@ -57,6 +60,7 @@ public class BookController {
         return bookService.updateBookById(id, bookRequestDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Remove existing book by some id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
