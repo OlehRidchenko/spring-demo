@@ -1,0 +1,171 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-sample-users-and-roles
+      author: dev
+      changes:
+
+        # -------------------- USERS --------------------
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 10
+              - column:
+                  name: email
+                  value: admin@example.com
+              - column:
+                  name: password
+                  value: $2a$10$9jfSg1qUqDTu7J6mK8lU2eT3w/ksIc9aY2WbKfHvR1z6q9K6p2t6C
+              - column:
+                  name: first_name
+                  value: Michael
+              - column:
+                  name: last_name
+                  value: Carter
+              - column:
+                  name: shipping_address
+                  value: 501 Riverside Ave, New York, USA
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 11
+              - column:
+                  name: email
+                  value: emma.smith@example.com
+              - column:
+                  name: password
+                  value: $2a$10$Jgsnl/uOuAvkPZ3eT4eO2eLr9ZJPHGQG0U31mJv9C7c9Tny0iR17y
+              - column:
+                  name: first_name
+                  value: Emma
+              - column:
+                  name: last_name
+                  value: Smith
+              - column:
+                  name: shipping_address
+                  value: 44 Wellington St, Toronto, Canada
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 12
+              - column:
+                  name: email
+                  value: kevin.lee@example.com
+              - column:
+                  name: password
+                  value: $2a$10$4pZBpx0QbQp2w9vCfmA2Ee7hm25VBpnx8DfMgvawUX9w7f5Crdqze
+              - column:
+                  name: first_name
+                  value: Kevin
+              - column:
+                  name: last_name
+                  value: Lee
+              - column:
+                  name: shipping_address
+                  value: 128 Sunset Blvd, Los Angeles, USA
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 13
+              - column:
+                  name: email
+                  value: olena.koval@example.com
+              - column:
+                  name: password
+                  value: $2a$10$H3dnnN2sfX5cau6n1j8A6OpG2Rz8KoyRKdawstLYM8t9bDgw9ArU2
+              - column:
+                  name: first_name
+                  value: Olena
+              - column:
+                  name: last_name
+                  value: Koval
+              - column:
+                  name: shipping_address
+                  value: 22 Shevchenka St, Lviv, Ukraine
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 14
+              - column:
+                  name: email
+                  value: lucas.martin@example.com
+              - column:
+                  name: password
+                  value: $2a$10$k8uocVfPYIuxg7CF8VjU6OgCS9e5F8uXUDSxxYbSlVJkKwBCanvQG
+              - column:
+                  name: first_name
+                  value: Lucas
+              - column:
+                  name: last_name
+                  value: Martin
+              - column:
+                  name: shipping_address
+                  value: 89 Grand Rue, Paris, France
+
+
+        # -------------------- USER ROLES --------------------
+
+        # Admin role with id 2
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 10
+              - column:
+                  name: role_id
+                  valueNumeric: 2
+
+        # User role with id 1
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 11
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 12
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 13
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 14
+              - column:
+                  name: role_id
+                  valueNumeric: 1
