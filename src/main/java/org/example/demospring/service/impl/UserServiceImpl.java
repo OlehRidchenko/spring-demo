@@ -11,8 +11,10 @@ import org.example.demospring.repository.role.RoleRepository;
 import org.example.demospring.repository.user.UserRepository;
 import org.example.demospring.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
