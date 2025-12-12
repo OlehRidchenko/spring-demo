@@ -10,6 +10,7 @@ import org.example.demospring.model.User;
 import org.example.demospring.repository.role.RoleRepository;
 import org.example.demospring.repository.user.UserRepository;
 import org.example.demospring.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto) throws RegistrationException {
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = mapper.toEntity(requestDto);
+        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         Role role = roleRepository.findByName(Role.RoleName.USER);
         user.getRoles().add(role);
         repository.save(user);
